@@ -1,0 +1,55 @@
+import java.util.Arrays;
+public class Main
+{
+	private static void merge(int[] X, int[] Y, int m, int n)
+	{
+		
+		int index = m + n + 1;
+
+		while (m >= 0 && n >= 0)
+		{
+			if (X[m] > Y[n])
+			{
+				X[index--] = X[m--];
+			}
+			else 
+			{
+				X[index--] = Y[n--];
+			}
+		}
+
+		while (n >= 0) 
+		{
+			X[index--] = Y[n--];
+		}
+
+		Arrays.fill(Y, 0);
+	}
+
+	public static void rearrange(int[] X, int[] Y)
+	{
+		
+		if (X.length == 0) 
+			return;
+
+		int index = 0;
+		for (int i=0; i<X.length; i++)
+		{
+			if (X[i] != 0) 
+				X[index++] = X[i];
+
+		}
+
+		merge(X, Y, index - 1, Y.length - 1);
+	}
+
+	public static void main (String[] args)
+	{
+		int[] X = { 0, 2, 0, 3, 0, 5, 6, 0, 0};
+		int[] Y = { 1, 8, 9, 10, 15 };
+
+		rearrange(X, Y);
+
+		System.out.println(Arrays.toString(X));
+	}
+}
