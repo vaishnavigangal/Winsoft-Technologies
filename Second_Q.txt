@@ -1,0 +1,81 @@
+import java.util.*;
+public class Main
+{
+    	public static int maxSum(int[] X, int[] Y)
+	{
+		int result = 0;
+		int sum1 = 0, sum2 = 0;
+
+		int m = X.length, n = Y.length;
+
+		
+		int i = 0, j = 0;
+
+	
+		while (i < m && j < n)
+		{
+		
+			while (i < m-1 && X[i] == X[i+1]) 
+			{
+				sum1 += X[i++];
+			}
+
+		
+			while (j < n-1 && Y[j] == Y[j+1]) 
+			{
+				sum2 += Y[j++];
+			}
+
+		
+			if (Y[j] < X[i])
+			{
+				sum2 += Y[j];
+				j++;
+			}
+
+			
+			else if (X[i] < Y[j])
+			{
+				sum1 += X[i];
+				i++;
+			}
+
+			else	
+			{
+				
+				result += Math.max(sum1, sum2) + X[i];
+
+				i++;
+				j++;
+
+				sum1 = 0;
+				sum2 = 0;
+			}
+		}
+
+		
+		while (i < m) 
+		{
+			sum1 += X[i++];
+		}
+
+		
+		while (j < n) 
+		{
+			sum2 += Y[j++];
+		}
+
+		result += Math.max(sum1, sum2);
+		return result;
+	}
+
+	public static void main(String[] args)
+	{
+	    
+		int[] X = { 3, 6, 7, 8, 10, 12, 15, 18, 100 };
+		int[] Y = { 1, 2, 3, 5, 7, 9, 10, 11, 15, 16, 18, 25, 50 };
+
+		System.out.println("The maximum sum is " + maxSum(X, Y));
+	}
+
+}
